@@ -1,25 +1,26 @@
-import logo from './logo.svg';
+import React from 'react';
+import styled from 'styled-components';
+import Todos from './components/Todos';
 import './App.css';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Container>
+      <Todos />
+    </Container>
   );
 }
+
+// Styled components
+const Container = styled.div`
+  width: 100%;
+  min-height: 100vh;
+  background: #eee;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  overflow-x: hidden;
+`;
 
 export default App;
