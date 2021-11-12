@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import styled from 'styled-components';
+
 import Todo from './Todo';
 
 const Todos = () => {
@@ -21,6 +22,7 @@ const Todos = () => {
 
     const data = {
       text: text,
+      createdAt: Date.now(),
     };
 
     axios
