@@ -96,6 +96,18 @@ const Button = styled.button`
       color: #f1f1f1;
       background: #3e9e47;
     }
+
+    &:active {
+      border: 1px solid #3e9e47;
+      color: #3e9e47;
+      background: none;
+    }
+
+    &:focus {
+      border: 1px solid #3e9e47;
+      color: #3e9e47;
+      background: none;
+    }
   }
 
   &.danger {
@@ -106,6 +118,18 @@ const Button = styled.button`
     &:hover {
       color: #f1f1f1;
       background: #e6354d;
+    }
+
+    &:active {
+      border: 1px solid #e6354d;
+      color: #e6354d;
+      background: none;
+    }
+
+    &:focus {
+      border: 1px solid #e6354d;
+      color: #e6354d;
+      background: none;
     }
   }
 `;
