@@ -27,13 +27,13 @@ const Todo = ({ todo, apiBase, getTodos }) => {
 
       <ButtonGroup>
         <Button className="danger" onClick={() => handleDelete(todo._id)}>
-          ✕
+          <i className="fas fa-times-circle"></i>
         </Button>
         <Button
           className="success"
           onClick={() => handleCompleteStatus(todo._id)}
         >
-          ✓
+          <i className="fas fa-check-circle"></i>
         </Button>
       </ButtonGroup>
     </ListItem>

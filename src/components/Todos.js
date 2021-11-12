@@ -44,7 +44,7 @@ const Todos = () => {
 
   return (
     <TodosWrapper>
-      <h1>Hello User!</h1>
+      <h1>Hello!</h1>
 
       <Form onSubmit={createTodo}>
         <Input
@@ -54,7 +54,9 @@ const Todos = () => {
           placeholder="Enter item name.."
           required
         />
-        <Button type="submit">+</Button>
+        <Button type="submit">
+          <i className="fas fa-paper-plane"></i>
+        </Button>
       </Form>
 
       <h2>Your list</h2>
