@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
 import dayjs from 'dayjs';
 import axios from 'axios';
@@ -6,6 +6,8 @@ import axios from 'axios';
 const Todo = ({ todo, apiBase, getTodos }) => {
   const [selected, setSelected] = useState({});
   const [editing, setEditing] = useState(false);
+
+  const itemRef = useRef();
 
   const handleDelete = (id) => {
     axios
@@ -33,18 +35,37 @@ const Todo = ({ todo, apiBase, getTodos }) => {
   };
 
   const handleUpdate = (id) => {
-    const data = { text: selected.text };
-
     setEditing(false);
 
-    axios
-      .patch(`${apiBase}/${id}`, data)
-      .then(() => getTodos())
-      .catch((error) => console.log(error));
+    if (todo.text !== selected.text) {
+      const data = { text: selected.text };
+
+      axios
+        .patch(`${apiBase}/${id}`, data)
+        .then(() => getTodos())
+        .catch((error) => console.log(error));
+    }
   };
 
+  const handleClickOutside = (e) => {
+    if (itemRef.current.contains(e.target)) {
+      return;
+    }
+    setEditing(false);
+  };
+
+  useEffect(() => {
+    if (itemRef) {
+      document.addEventListener('mousedown', handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, []);
+
   return (
-    <ListItem completed={todo.completed}>
+    <ListItem completed={todo.completed} ref={itemRef}>
       <ListContent>
         {editing ? (
           <InputWrapper>
