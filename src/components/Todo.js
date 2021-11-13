@@ -1,9 +1,12 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import dayjs from 'dayjs';
 import axios from 'axios';
 
 const Todo = ({ todo, apiBase, getTodos }) => {
+  const [selected, setSelected] = useState({});
+  const [editing, setEditing] = useState(false);
+
   const handleDelete = (id) => {
     axios
       .delete(`${apiBase}/${id}`)
@@ -18,24 +21,58 @@ const Todo = ({ todo, apiBase, getTodos }) => {
       .catch((error) => console.log(error));
   };
 
+  const handleEdit = (item) => {
+    if (!item.completed) {
+      setSelected(item);
+      setEditing(!editing);
+    }
+  };
+
+  const handleChange = (e) => {
+    setSelected({ ...selected, text: e.target.value });
+  };
+
+  const handleUpdate = (id) => {
+    const data = { text: selected.text };
+
+    setEditing(false);
+
+    axios
+      .patch(`${apiBase}/${id}`, data)
+      .then(() => getTodos())
+      .catch((error) => console.log(error));
+  };
+
   return (
     <ListItem completed={todo.completed}>
       <ListContent>
-        <ListText>{todo.text}</ListText>
+        {editing ? (
+          <InputWrapper>
+            <Input value={selected.text} onChange={handleChange} autoFocus />
+          </InputWrapper>
+        ) : (
+          <ListText onClick={() => handleEdit(todo)}>{todo.text}</ListText>
+        )}
         <ListDate>{dayjs(todo.createdAt).format('MMM. DD - HH:mm')}</ListDate>
       </ListContent>
 
-      <ButtonGroup>
-        <Button className="danger" onClick={() => handleDelete(todo._id)}>
-          <i className="fas fa-times-circle"></i>
+      {editing ? (
+        <Button className="success" onClick={() => handleUpdate(todo._id)}>
+          <i className="fas fa-save"></i>
         </Button>
-        <Button
-          className="success"
-          onClick={() => handleCompleteStatus(todo._id)}
-        >
-          <i className="fas fa-check-circle"></i>
-        </Button>
-      </ButtonGroup>
+      ) : (
+        <ButtonGroup>
+          <Button className="danger" onClick={() => handleDelete(todo._id)}>
+            <i className="fas fa-times"></i>
+          </Button>
+          <Button
+            className="success"
+            onClick={() => handleCompleteStatus(todo._id)}
+          >
+            <i className="fas fa-check"></i>
+          </Button>
+        </ButtonGroup>
+      )}
     </ListItem>
   );
 };
@@ -67,7 +104,9 @@ const ListContent = styled.div`
   margin-right: 40px;
 `;
 
-const ListText = styled.h4``;
+const ListText = styled.h4`
+  cursor: pointer;
+`;
 
 const ListDate = styled.small`
   color: #999;
@@ -132,6 +171,18 @@ const Button = styled.button`
       background: none;
     }
   }
+`;
+
+const InputWrapper = styled.div``;
+
+const Input = styled.input`
+  width: 172px;
+  height: 40px;
+  padding: 0 12px;
+  outline: none;
+  border: 1px solid #3486eb;
+  border-radius: 12px;
+  font-size: 16px;
 `;
 
 export default Todo;
