@@ -120,7 +120,8 @@ const ListItem = styled.li`
 `;
 
 const ListContent = styled.div`
-  margin-right: 40px;
+  margin-right: 20px;
+  overflow: hidden;
 `;
 
 const ListText = styled.h4`
