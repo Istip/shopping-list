@@ -10,7 +10,7 @@ const Todos = () => {
   const [filter, setFilter] = useState(true);
   const [loading, setLoading] = useState(true);
 
-  const API_BASE = 'https://isti-list.herokuapp.com/todos';
+  const API_BASE = process.env.REACT_APP_BASE_URL;
 
   const getTodos = () => {
     axios
@@ -49,6 +49,7 @@ const Todos = () => {
 
   useEffect(() => {
     getTodos();
+    // eslint-disable-next-line
   }, []);
 
   if (loading) {
