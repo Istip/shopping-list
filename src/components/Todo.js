@@ -37,14 +37,12 @@ const Todo = ({ todo, apiBase, getTodos }) => {
   const handleUpdate = (id) => {
     setEditing(false);
 
-    if (todo.text !== selected.text) {
-      const data = { text: selected.text };
+    const data = { text: selected.text };
 
-      axios
-        .patch(`${apiBase}/${id}`, data)
-        .then(() => getTodos())
-        .catch((error) => console.log(error));
-    }
+    axios
+      .patch(`${apiBase}/${id}`, data)
+      .then(() => getTodos())
+      .catch((error) => console.log(error));
   };
 
   const handleClickOutside = (e) => {
