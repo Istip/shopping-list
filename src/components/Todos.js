@@ -82,7 +82,7 @@ const Todos = () => {
           onClick={() => setFilter(!filter)}
           className="secondary"
         >
-          <i className="fas fa-eye"></i>
+          <i className={`fas ${filter ? 'fa-eye' : 'fa-eye-slash'}`}></i>
         </Button>
         <Button type="submit">
           <i className="fas fa-paper-plane"></i>
