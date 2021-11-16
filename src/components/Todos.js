@@ -66,7 +66,7 @@ const Todos = () => {
 
   return (
     <TodosWrapper>
-      <h1>Hello!</h1>
+      <h1>Our list</h1>
 
       <Form onSubmit={createTodo}>
         <Input
@@ -88,8 +88,6 @@ const Todos = () => {
           <i className="fas fa-paper-plane"></i>
         </Button>
       </Form>
-
-      <h2>Our list</h2>
 
       {filteredTodos.length ? (
         <List>

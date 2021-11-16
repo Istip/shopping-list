@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
-import dayjs from 'dayjs';
+import moment from 'moment';
 import axios from 'axios';
 
 const Todo = ({ todo, apiBase, getTodos }) => {
@@ -72,7 +72,10 @@ const Todo = ({ todo, apiBase, getTodos }) => {
         ) : (
           <ListText onClick={() => handleEdit(todo)}>{todo.text}</ListText>
         )}
-        <ListDate>{dayjs(todo.createdAt).format('MMM. DD - HH:mm')}</ListDate>
+        <ListDate>
+          <i className="far fa-clock"></i>
+          <span>{moment(todo.createdAt).fromNow()}</span>
+        </ListDate>
       </ListContent>
 
       {editing ? (
@@ -130,6 +133,10 @@ const ListText = styled.h4`
 
 const ListDate = styled.small`
   color: #999;
+
+  span {
+    margin-left: 6px;
+  }
 `;
 
 const ButtonGroup = styled.div`
