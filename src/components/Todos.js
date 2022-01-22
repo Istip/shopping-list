@@ -66,7 +66,7 @@ const Todos = () => {
 
   return (
     <TodosWrapper>
-      <h1>Our list</h1>
+      <h1>Our List</h1>
 
       <Form onSubmit={createTodo}>
         <Input
@@ -91,12 +91,13 @@ const Todos = () => {
 
       {filteredTodos.length ? (
         <List>
-          {filteredTodos.map((todo) => (
+          {filteredTodos.map((todo, i) => (
             <Todo
               key={todo._id}
               todo={todo}
               apiBase={API_BASE}
               getTodos={getTodos}
+              index={i}
             />
           ))}
         </List>
@@ -121,7 +122,7 @@ const TodosWrapper = styled.div`
   flex-direction: column;
   background: #fff;
   border-radius: 12px;
-  border: 1px solid #111199;
+  border: 1px solid #ccc;
   box-shadow: 0px 5px 100px 20px rgba(0, 0, 0, 0.1);
 `;
 

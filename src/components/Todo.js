@@ -2,8 +2,9 @@ import React, { useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
 import moment from 'moment';
 import axios from 'axios';
+import { motion } from 'framer-motion';
 
-const Todo = ({ todo, apiBase, getTodos }) => {
+const Todo = ({ todo, apiBase, getTodos, index }) => {
   const [selected, setSelected] = useState({});
   const [editing, setEditing] = useState(false);
 
@@ -63,7 +64,14 @@ const Todo = ({ todo, apiBase, getTodos }) => {
   }, []);
 
   return (
-    <ListItem completed={todo.completed} ref={itemRef}>
+    <ListItem
+      completed={todo.completed}
+      ref={itemRef}
+      initial={{ translateX: -50, opacity: 0 }}
+      animate={{ translateX: 0, opacity: 1 }}
+      exit={{ translateX: 10, opacity: 0 }}
+      transition={{ duration: 0.25, delay: index * 0.025 }}
+    >
       <ListContent>
         {editing ? (
           <InputWrapper>
@@ -100,17 +108,18 @@ const Todo = ({ todo, apiBase, getTodos }) => {
 };
 
 // Styled components
-const ListItem = styled.li`
+const ListItem = styled(motion.li)`
   list-style-type: none;
   padding: 8px 12px;
   border-radius: 12px;
-  background: #f1f1f1;
+  background: ${(props) => (props.completed ? '#fff' : '#f1f1f1')};;
+  color: ${(props) => (props.completed ? '#aaa' : '#111')};;
   border: 1px solid #f1f1f1;
   display: flex;
   justify-content: space-between;
   text-align: left;
   margin-bottom: 10px;
-  opacity: ${(props) => (props.completed ? 0.3 : 1)};
+  opacity: 
   transition: 250ms ease;
 
   &:hover {
