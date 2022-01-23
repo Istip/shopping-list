@@ -3,11 +3,12 @@ import axios from 'axios';
 import styled from 'styled-components';
 
 import Todo from './Todo';
+import { useLocalStorage } from '../hooks/useLocalStorage';
 
 const Todos = () => {
   const [todos, setTodos] = useState([]);
   const [text, setText] = useState('');
-  const [filter, setFilter] = useState(true);
+  const [filter, setFilter] = useLocalStorage('viewFilter', true);
   const [loading, setLoading] = useState(true);
 
   // Base url
