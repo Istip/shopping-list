@@ -3,6 +3,14 @@ import styled from 'styled-components';
 import moment from 'moment';
 import axios from 'axios';
 import { motion } from 'framer-motion';
+import {
+  LeadingActions,
+  SwipeableList,
+  SwipeableListItem,
+  SwipeAction,
+  TrailingActions,
+} from 'react-swipeable-list';
+import 'react-swipeable-list/dist/styles.css';
 
 const Todo = ({ todo, apiBase, getTodos, index }) => {
   const [selected, setSelected] = useState({});
@@ -17,8 +25,8 @@ const Todo = ({ todo, apiBase, getTodos, index }) => {
       .catch((error) => console.log(error));
   };
 
-  const handleCompleteStatus = (id) => {
-    axios
+  const handleCompleteStatus = async (id) => {
+    await axios
       .put(`${apiBase}/${id}`)
       .then(() => getTodos())
       .catch((error) => console.log(error));
@@ -63,71 +71,83 @@ const Todo = ({ todo, apiBase, getTodos, index }) => {
     };
   }, []);
 
-  return (
-    <ListItem
-      completed={todo.completed}
-      ref={itemRef}
-      initial={{ translateX: -50, opacity: 0 }}
-      animate={{ translateX: 0, opacity: 1 }}
-      exit={{ translateX: 10, opacity: 0 }}
-      transition={{ duration: 0.25, delay: index * 0.025 }}
-    >
-      <ListContent>
-        {editing ? (
-          <InputWrapper>
-            <Input value={selected.text} onChange={handleChange} autoFocus />
-          </InputWrapper>
-        ) : (
-          <ListText onClick={() => handleEdit(todo)}>{todo.text}</ListText>
-        )}
-        <ListDate>
-          <i className="far fa-clock"></i>
-          <span>{moment(todo.createdAt).fromNow()}</span>
-        </ListDate>
-      </ListContent>
+  const leadingActions = () => (
+    <LeadingActions>
+      <SwipeAction onClick={() => handleCompleteStatus(todo._id)}>
+        <Action className="success">
+          {todo.completed ? 'UNDO' : 'COMPLETE'}
+        </Action>
+      </SwipeAction>
+    </LeadingActions>
+  );
 
-      {editing ? (
-        <Button className="success" onClick={() => handleUpdate(todo._id)}>
-          <i className="fas fa-save"></i>
-        </Button>
-      ) : (
-        <ButtonGroup>
-          <Button className="danger" onClick={() => handleDelete(todo._id)}>
-            <i className="fas fa-times"></i>
-          </Button>
-          <Button
-            className="success"
-            onClick={() => handleCompleteStatus(todo._id)}
-          >
-            <i className="fas fa-check"></i>
-          </Button>
-        </ButtonGroup>
-      )}
-    </ListItem>
+  const trailingActions = () => (
+    <TrailingActions>
+      <SwipeAction destructive={true} onClick={() => handleDelete(todo._id)}>
+        <Action className="danger">REMOVE</Action>
+      </SwipeAction>
+    </TrailingActions>
+  );
+
+  return (
+    <SwipeableList>
+      <SwipeableListItem
+        leadingActions={leadingActions()}
+        trailingActions={trailingActions()}
+      >
+        <ListItem
+          completed={todo.completed}
+          ref={itemRef}
+          initial={{ translateX: -50, opacity: 0 }}
+          animate={{ translateX: 0, opacity: 1 }}
+          exit={{ translateX: 10, opacity: 0 }}
+          transition={{ duration: 0.25, delay: index * 0.025 }}
+        >
+          <ListContent>
+            {editing ? (
+              <InputWrapper>
+                <Input
+                  value={selected.text}
+                  onChange={handleChange}
+                  autoFocus
+                />
+              </InputWrapper>
+            ) : (
+              <ListText onClick={() => handleEdit(todo)}>{todo.text}</ListText>
+            )}
+            <ListDate>
+              <i className="far fa-clock"></i>
+              <span>{moment(todo.createdAt).fromNow()}</span>
+            </ListDate>
+          </ListContent>
+
+          {editing && (
+            <Button className="success" onClick={() => handleUpdate(todo._id)}>
+              <i className="fas fa-save"></i>
+            </Button>
+          )}
+        </ListItem>
+      </SwipeableListItem>
+    </SwipeableList>
   );
 };
 
 // Styled components
 const ListItem = styled(motion.li)`
+  width: 100%;
   list-style-type: none;
-  padding: 8px 12px;
-  border-radius: 12px;
-  background: ${(props) => (props.completed ? '#fff' : '#f1f1f1')};;
-  color: ${(props) => (props.completed ? '#aaa' : '#111')};;
+  padding: 12px;
+  background: ${(props) => (props.completed ? '#fff' : '#f1f1f1')};
+  color: ${(props) => (props.completed ? '#aaa' : '#111')};
   border: 1px solid #f1f1f1;
   display: flex;
   justify-content: space-between;
   text-align: left;
-  margin-bottom: 10px;
-  opacity: 
   transition: 250ms ease;
+  border-bottom: 1px solid #ddd;
 
   &:hover {
     border: 1px solid #e1e1e1;
-  }
-
-  &:first-child {
-    margin-top: 10px;
   }
 `;
 
@@ -148,9 +168,23 @@ const ListDate = styled.small`
   }
 `;
 
-const ButtonGroup = styled.div`
+const Action = styled.div`
   display: flex;
-  gap: 5px;
+  align-items: center;
+  height: 100%;
+  padding: 10;
+  font-size: 12px;
+  font-weight: 600;
+  color: #fff;
+  padding: 10px;
+
+  &.success {
+    background: #3e9e47;
+  }
+
+  &.danger {
+    background: #e6354d;
+  }
 `;
 
 const Button = styled.button`
