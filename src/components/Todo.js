@@ -134,10 +134,26 @@ const Todo = ({ todo, apiBase, getTodos, index }) => {
                 </ListText>
               )}
               <ListDate>
-                <i className="far fa-clock"></i>
+                <i
+                  className="far fa-clock"
+                  style={{
+                    color:
+                      moment().diff(moment(todo.createdAt), 'months') >= 1
+                        ? '#e6354d99'
+                        : '#999',
+                  }}
+                ></i>
                 <span>
-                  {moment(todo.createdAt).format('YYYY.MM.DD')} -{' '}
-                  <b>{moment(todo.createdAt).fromNow()}</b>
+                  <b
+                    style={{
+                      color:
+                        moment().diff(moment(todo.createdAt), 'months') >= 1
+                          ? '#e6354d99'
+                          : '#aaa',
+                    }}
+                  >
+                    {moment(todo.createdAt).fromNow()}
+                  </b>
                 </span>
               </ListDate>
             </ListContent>
@@ -162,7 +178,7 @@ const ListItem = styled(motion.li)`
   width: 100%;
   margin-bottom: 8px;
   list-style-type: none;
-  padding: 12px;
+  padding: 18px;
   background: ${(props) => (props.completed ? '#fff' : '#f1f1f1')};
   color: ${(props) => (props.completed ? '#aaa' : '#111')};
   border: 1px solid #f1f1f1;
@@ -183,11 +199,10 @@ const ListContent = styled.div`
 
 const ListText = styled.h4`
   cursor: pointer;
-  margin-bottom: 10px;
+  line-height: 18px;
 `;
 
 const ListDate = styled.small`
-  color: #999;
   font-size: 12px;
 
   span {
