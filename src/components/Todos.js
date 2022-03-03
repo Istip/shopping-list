@@ -78,16 +78,19 @@ const Todos = () => {
           required
         />
 
-        <Button
-          type="button"
-          onClick={() => setFilter(!filter)}
-          className="secondary"
-        >
-          <i className={`fas ${filter ? 'fa-eye' : 'fa-eye-slash'}`}></i>
-        </Button>
-        <Button type="submit">
-          <i className="fas fa-paper-plane"></i>
-        </Button>
+        <ButtonGroup>
+          <Button
+            type="button"
+            onClick={() => setFilter(!filter)}
+            className="secondary"
+          >
+            <i className={`fas ${filter ? 'fa-eye' : 'fa-eye-slash'}`}></i>{' '}
+            {filter ? 'Show' : 'Hide'}
+          </Button>
+          <Button type="submit">
+            <i className="fas fa-paper-plane"></i> Add to List
+          </Button>
+        </ButtonGroup>
       </Form>
 
       {filteredTodos.length ? (
@@ -123,7 +126,7 @@ const TodosWrapper = styled.div`
   flex-direction: column;
   background: #fff;
   border-radius: 12px;
-  border: 1px solid #ccc;
+  border: 1px solid #999;
   box-shadow: 0px 5px 100px 20px rgba(0, 0, 0, 0.1);
 `;
 
@@ -141,12 +144,13 @@ const Form = styled.form`
   width: 100%;
   margin: 20px 0;
   display: flex;
+  flex-direction: column;
   gap: 5px;
 `;
 
 const Input = styled.input`
-  max-width: 188px;
   padding: 0 12px;
+  height: 40px;
   outline: none;
   border: 1px solid #3486eb;
   border-radius: 12px;
@@ -157,7 +161,7 @@ const Button = styled.button`
   border: none;
   outline: none;
   border-radius: 12px;
-  width: 40px;
+  width: 100%;
   height: 40px;
   cursor: pointer;
   transition: 250ms ease;
@@ -171,11 +175,9 @@ const Button = styled.button`
   }
 
   &.secondary {
-    width: 40px;
-
     border: 1px solid #3486eb;
     color: #3486eb;
-    background: none;
+    background: #3486eb33;
 
     &:hover {
       color: #2663ad;
@@ -187,6 +189,14 @@ const Button = styled.button`
 const Img = styled.img`
   width: 300px;
   height: auto;
+`;
+
+const ButtonGroup = styled.div`
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
 `;
 
 export default Todos;

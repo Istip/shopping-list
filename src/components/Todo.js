@@ -160,16 +160,17 @@ const Todo = ({ todo, apiBase, getTodos, index }) => {
 // Styled components
 const ListItem = styled(motion.li)`
   width: 100%;
+  margin-bottom: 8px;
   list-style-type: none;
   padding: 12px;
   background: ${(props) => (props.completed ? '#fff' : '#f1f1f1')};
   color: ${(props) => (props.completed ? '#aaa' : '#111')};
   border: 1px solid #f1f1f1;
+  border-radius: 12px;
   display: flex;
   justify-content: space-between;
   text-align: left;
   transition: 250ms ease;
-  border-bottom: 1px solid #ddd;
 
   &:hover {
     border: 1px solid #e1e1e1;
@@ -177,17 +178,17 @@ const ListItem = styled(motion.li)`
 `;
 
 const ListContent = styled.div`
-  margin-right: 20px;
   overflow: hidden;
 `;
 
 const ListText = styled.h4`
   cursor: pointer;
+  margin-bottom: 10px;
 `;
 
 const ListDate = styled.small`
   color: #999;
-  font-size: 10px;
+  font-size: 12px;
 
   span {
     margin-left: 6px;
@@ -197,12 +198,14 @@ const ListDate = styled.small`
 const Action = styled.div`
   display: flex;
   align-items: center;
-  height: 100%;
-  padding: 10;
+  width: 100%;
+  padding: 10px;
+  margin: 0 8px 8px;
   font-size: 12px;
   font-weight: 600;
   color: #fff;
   padding: 10px;
+  border-radius: 12px;
 
   &.success {
     background: #3e9e47;
@@ -290,7 +293,9 @@ const Loading = styled.div`
   align-items: center;
   justify-content: center;
   width: 100%;
-  height: 67px;
+  height: 86px;
+  margin-bottom: 8px;
+  border-radius: 12px;
 `;
 
 export default Todo;
