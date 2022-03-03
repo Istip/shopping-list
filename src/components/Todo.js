@@ -135,7 +135,10 @@ const Todo = ({ todo, apiBase, getTodos, index }) => {
               )}
               <ListDate>
                 <i className="far fa-clock"></i>
-                <span>{moment(todo.createdAt).fromNow()}</span>
+                <span>
+                  {moment(todo.createdAt).format('YYYY.MM.DD')} -{' '}
+                  <b>{moment(todo.createdAt).fromNow()}</b>
+                </span>
               </ListDate>
             </ListContent>
 
@@ -184,6 +187,7 @@ const ListText = styled.h4`
 
 const ListDate = styled.small`
   color: #999;
+  font-size: 10px;
 
   span {
     margin-left: 6px;
