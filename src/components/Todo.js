@@ -15,21 +15,34 @@ import 'react-swipeable-list/dist/styles.css';
 const Todo = ({ todo, apiBase, getTodos, index }) => {
   const [selected, setSelected] = useState({});
   const [editing, setEditing] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const itemRef = useRef();
 
   const handleDelete = (id) => {
     axios
       .delete(`${apiBase}/${id}`)
-      .then(() => getTodos())
-      .catch((error) => console.log(error));
+      .then(() => {
+        getTodos();
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
 
   const handleCompleteStatus = async (id) => {
+    setLoading(true);
+
     await axios
       .put(`${apiBase}/${id}`)
-      .then(() => getTodos())
-      .catch((error) => console.log(error));
+      .then(() => {
+        setLoading(false);
+        getTodos();
+      })
+      .catch((error) => {
+        setLoading(false);
+        console.log(error);
+      });
   };
 
   const handleEdit = (item) => {
@@ -91,43 +104,52 @@ const Todo = ({ todo, apiBase, getTodos, index }) => {
 
   return (
     <SwipeableList>
-      <SwipeableListItem
-        leadingActions={leadingActions()}
-        trailingActions={trailingActions()}
-      >
-        <ListItem
-          completed={todo.completed}
-          ref={itemRef}
-          initial={{ translateX: -50, opacity: 0 }}
-          animate={{ translateX: 0, opacity: 1 }}
-          exit={{ translateX: 10, opacity: 0 }}
-          transition={{ duration: 0.25, delay: index * 0.025 }}
+      {loading ? (
+        <Loading>Loading...</Loading>
+      ) : (
+        <SwipeableListItem
+          leadingActions={!loading && leadingActions()}
+          trailingActions={!loading && trailingActions()}
         >
-          <ListContent>
-            {editing ? (
-              <InputWrapper>
-                <Input
-                  value={selected.text}
-                  onChange={handleChange}
-                  autoFocus
-                />
-              </InputWrapper>
-            ) : (
-              <ListText onClick={() => handleEdit(todo)}>{todo.text}</ListText>
-            )}
-            <ListDate>
-              <i className="far fa-clock"></i>
-              <span>{moment(todo.createdAt).fromNow()}</span>
-            </ListDate>
-          </ListContent>
+          <ListItem
+            completed={todo.completed}
+            ref={itemRef}
+            initial={{ translateX: -50, opacity: 0 }}
+            animate={{ translateX: 0, opacity: 1 }}
+            exit={{ translateX: 10, opacity: 0 }}
+            transition={{ duration: 0.25, delay: index * 0.025 }}
+          >
+            <ListContent>
+              {editing ? (
+                <InputWrapper>
+                  <Input
+                    value={selected.text}
+                    onChange={handleChange}
+                    autoFocus
+                  />
+                </InputWrapper>
+              ) : (
+                <ListText onClick={() => handleEdit(todo)}>
+                  {todo.text}
+                </ListText>
+              )}
+              <ListDate>
+                <i className="far fa-clock"></i>
+                <span>{moment(todo.createdAt).fromNow()}</span>
+              </ListDate>
+            </ListContent>
 
-          {editing && (
-            <Button className="success" onClick={() => handleUpdate(todo._id)}>
-              <i className="fas fa-save"></i>
-            </Button>
-          )}
-        </ListItem>
-      </SwipeableListItem>
+            {editing && (
+              <Button
+                className="success"
+                onClick={() => handleUpdate(todo._id)}
+              >
+                <i className="fas fa-save"></i>
+              </Button>
+            )}
+          </ListItem>
+        </SwipeableListItem>
+      )}
     </SwipeableList>
   );
 };
@@ -253,6 +275,18 @@ const Input = styled.input`
   border: 1px solid #3486eb;
   border-radius: 12px;
   font-size: 16px;
+`;
+
+const Loading = styled.div`
+  background: #f1f1f1;
+  color: #666;
+  font-size: 12px;
+  font-weight: bolder;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 67px;
 `;
 
 export default Todo;
