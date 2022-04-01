@@ -51,7 +51,6 @@ const Todos = () => {
 
   useEffect(() => {
     getTodos();
-    // eslint-disable-next-line
   }, []);
 
   if (loading) {
@@ -92,6 +91,14 @@ const Todos = () => {
           </Button>
         </ButtonGroup>
       </Form>
+
+      {todos.length && (
+        <Total>
+          <>
+            There are: <b>{todos.length}</b> items on the list.
+          </>
+        </Total>
+      )}
 
       {filteredTodos.length ? (
         <List>
@@ -169,6 +176,10 @@ const Button = styled.button`
   color: #f1f1f1;
   background: #3486eb;
 
+  i {
+    margin-right: 4px;
+  }
+
   &:hover {
     background: #2663ad;
     border: 1px solid #2663ad;
@@ -197,6 +208,19 @@ const ButtonGroup = styled.div`
   align-items: center;
   justify-content: center;
   gap: 5px;
+`;
+
+const Total = styled.div`
+  width: 100%;
+  font-size: 14px;
+  margin-bottom: 20px;
+  padding: 8px 0;
+  border-bottom: 1px dashed #3486eb;
+  border-top: 1px dashed #3486eb;
+
+  b {
+    color: #3486eb;
+  }
 `;
 
 export default Todos;
