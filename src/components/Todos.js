@@ -51,7 +51,7 @@ const Todos = () => {
 
   useEffect(() => {
     getTodos();
-  }, []);
+  }, [getTodos]);
 
   if (loading) {
     return (
@@ -92,7 +92,13 @@ const Todos = () => {
         </ButtonGroup>
       </Form>
 
-      {todos.length && (
+      {todos.length && todos.length === 1 ? (
+        <Total>
+          <>
+            There is: <b>{todos.length}</b> item on the list.
+          </>
+        </Total>
+      ) : (
         <Total>
           <>
             There are: <b>{todos.length}</b> items on the list.
