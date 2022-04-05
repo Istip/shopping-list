@@ -58,7 +58,7 @@ const Todos = () => {
     return (
       <TodosWrapper pending>
         <Img
-          src="https://www.unra.go.ug/assets/loaders/loader_2.gif"
+          src="https://www.scudamores.com/assets/damsel/assets/img/load.gif"
           alt="Loading..."
         />
       </TodosWrapper>
