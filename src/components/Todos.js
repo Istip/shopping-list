@@ -14,6 +14,7 @@ const Todos = () => {
   // Base url
   const API_BASE = process.env.REACT_APP_BASE_URL;
 
+  // eslint-disable-next-line
   const getTodos = () => {
     axios
       .get(API_BASE)
