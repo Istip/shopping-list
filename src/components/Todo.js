@@ -125,6 +125,7 @@ const Todo = ({ todo, apiBase, getTodos, index }) => {
                   <Input
                     value={selected.text}
                     onChange={handleChange}
+                    autoComplete="off"
                     autoFocus
                   />
                 </InputWrapper>

@@ -52,7 +52,8 @@ const Todos = () => {
 
   useEffect(() => {
     getTodos();
-  }, [getTodos]);
+    // eslint-disable-next-line
+  }, []);
 
   if (loading) {
     return (
