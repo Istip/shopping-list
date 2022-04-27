@@ -70,7 +70,7 @@ const Todos = () => {
     <TodosWrapper>
       <h1>Our List</h1>
 
-      <Form onSubmit={createTodo}>
+      <Form onSubmit={createTodo} autoComplete="off">
         <Input
           name="text"
           value={text}
