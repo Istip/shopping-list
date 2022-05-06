@@ -1,12 +1,10 @@
-import { useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import Todos from './components/Todos';
 
 function App() {
-  const [background, setBackground] = useState('#3486eb33');
-
   return (
-    <Container background={background}>
+    <Container>
       <Todos />
     </Container>
   );
@@ -22,7 +20,7 @@ const Container = styled.div`
   justify-content: center;
   flex-direction: column;
   overflow-x: hidden;
-  background: ${({ background }) => background};
+  background: #3486eb33;
 `;
 
 export default App;
