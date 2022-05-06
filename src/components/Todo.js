@@ -21,10 +21,16 @@ const Todo = ({ todo, apiBase, getTodos, index }) => {
 
   const itemRef = useRef();
 
-  const longPressed = useLongPress(() => {
-    handleCompleteStatus(todo._id);
-    navigator.vibrate(200);
-  });
+  const longPressed = useLongPress(
+    () => {
+      handleCompleteStatus(todo._id);
+      navigator.vibrate(200);
+    },
+    {
+      threshold: 500,
+      captureEvent: true,
+    }
+  );
 
   const handleDelete = (id) => {
     axios

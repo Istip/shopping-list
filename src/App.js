@@ -1,5 +1,4 @@
-import React from 'react';
-import { useState } from 'react/cjs/react.production.min';
+import { useState } from 'react';
 import styled from 'styled-components';
 import Todos from './components/Todos';
 
@@ -23,7 +22,7 @@ const Container = styled.div`
   justify-content: center;
   flex-direction: column;
   overflow-x: hidden;
-  background-color: ${({ background }) => background};
+  background: ${({ background }) => background};
 `;
 
 export default App;
