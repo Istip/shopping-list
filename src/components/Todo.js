@@ -2,7 +2,9 @@ import React, { useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
 import moment from 'moment';
 import axios from 'axios';
+import { useLongPress } from 'use-long-press';
 import { motion } from 'framer-motion';
+
 import {
   LeadingActions,
   SwipeableList,
@@ -18,6 +20,11 @@ const Todo = ({ todo, apiBase, getTodos, index }) => {
   const [loading, setLoading] = useState(false);
 
   const itemRef = useRef();
+
+  const longPressed = useLongPress(() => {
+    handleCompleteStatus(todo._id);
+    navigator.navigate(200);
+  });
 
   const handleDelete = (id) => {
     axios
@@ -103,74 +110,76 @@ const Todo = ({ todo, apiBase, getTodos, index }) => {
   );
 
   return (
-    <SwipeableList>
-      {loading ? (
-        <Loading>Loading...</Loading>
-      ) : (
-        <SwipeableListItem
-          leadingActions={!loading && leadingActions()}
-          trailingActions={!loading && trailingActions()}
-        >
-          <ListItem
-            completed={todo.completed}
-            ref={itemRef}
-            initial={{ translateX: -50, opacity: 0 }}
-            animate={{ translateX: 0, opacity: 1 }}
-            exit={{ translateX: 10, opacity: 0 }}
-            transition={{ duration: 0.25, delay: index * 0.025 }}
+    <div {...longPressed()}>
+      <SwipeableList>
+        {loading ? (
+          <Loading>Loading...</Loading>
+        ) : (
+          <SwipeableListItem
+            leadingActions={!loading && leadingActions()}
+            trailingActions={!loading && trailingActions()}
           >
-            <ListContent>
-              {editing ? (
-                <InputWrapper>
-                  <Input
-                    value={selected.text}
-                    onChange={handleChange}
-                    autoComplete="off"
-                    autoFocus
-                  />
-                </InputWrapper>
-              ) : (
-                <ListText onClick={() => handleEdit(todo)}>
-                  {todo.text}
-                </ListText>
-              )}
-              <ListDate>
-                <i
-                  className="far fa-clock"
-                  style={{
-                    color:
-                      moment().diff(moment(todo.createdAt), 'months') >= 1
-                        ? '#e6354d99'
-                        : '#999',
-                  }}
-                ></i>
-                <span>
-                  <b
+            <ListItem
+              completed={todo.completed}
+              ref={itemRef}
+              initial={{ translateX: -50, opacity: 0 }}
+              animate={{ translateX: 0, opacity: 1 }}
+              exit={{ translateX: 10, opacity: 0 }}
+              transition={{ duration: 0.25, delay: index * 0.025 }}
+            >
+              <ListContent>
+                {editing ? (
+                  <InputWrapper>
+                    <Input
+                      value={selected.text}
+                      onChange={handleChange}
+                      autoComplete="off"
+                      autoFocus
+                    />
+                  </InputWrapper>
+                ) : (
+                  <ListText onClick={() => handleEdit(todo)}>
+                    {todo.text}
+                  </ListText>
+                )}
+                <ListDate>
+                  <i
+                    className="far fa-clock"
                     style={{
                       color:
                         moment().diff(moment(todo.createdAt), 'months') >= 1
                           ? '#e6354d99'
-                          : '#aaa',
+                          : '#999',
                     }}
-                  >
-                    {moment(todo.createdAt).fromNow()}
-                  </b>
-                </span>
-              </ListDate>
-            </ListContent>
+                  ></i>
+                  <span>
+                    <b
+                      style={{
+                        color:
+                          moment().diff(moment(todo.createdAt), 'months') >= 1
+                            ? '#e6354d99'
+                            : '#aaa',
+                      }}
+                    >
+                      {moment(todo.createdAt).fromNow()}
+                    </b>
+                  </span>
+                </ListDate>
+              </ListContent>
 
-            {editing && (
-              <Button
-                className="success"
-                onClick={() => handleUpdate(todo._id)}
-              >
-                <i className="fas fa-save"></i>
-              </Button>
-            )}
-          </ListItem>
-        </SwipeableListItem>
-      )}
-    </SwipeableList>
+              {editing && (
+                <Button
+                  className="success"
+                  onClick={() => handleUpdate(todo._id)}
+                >
+                  <i className="fas fa-save"></i>
+                </Button>
+              )}
+            </ListItem>
+          </SwipeableListItem>
+        )}
+      </SwipeableList>
+    </div>
   );
 };
 
