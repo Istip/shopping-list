@@ -23,7 +23,7 @@ const Todo = ({ todo, apiBase, getTodos, index }) => {
 
   const longPressed = useLongPress(() => {
     handleCompleteStatus(todo._id);
-    navigator.navigate(200);
+    navigator.vibrate(200);
   });
 
   const handleDelete = (id) => {
@@ -110,7 +110,7 @@ const Todo = ({ todo, apiBase, getTodos, index }) => {
   );
 
   return (
-    <div {...longPressed()}>
+    <Container {...longPressed()}>
       <SwipeableList>
         {loading ? (
           <Loading>Loading...</Loading>
@@ -179,11 +179,15 @@ const Todo = ({ todo, apiBase, getTodos, index }) => {
           </SwipeableListItem>
         )}
       </SwipeableList>
-    </div>
+    </Container>
   );
 };
 
 // Styled components
+const Container = styled.div`
+  user-select: none;
+`;
+
 const ListItem = styled(motion.li)`
   width: 100%;
   margin-bottom: 8px;
