@@ -16,7 +16,6 @@ function App() {
 
   const [filter, setFilter] = useLocalStorage('viewFilter', true);
 
-  // Base url
   const API_BASE = process.env.REACT_APP_BASE_URL;
 
   const getTodos = () => {
