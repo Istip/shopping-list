@@ -1,9 +1,17 @@
-import React, { useEffect, useRef, useState } from 'react';
-import styled from 'styled-components';
+import { useEffect, useRef, useState } from 'react';
 import moment from 'moment';
 import axios from 'axios';
-import { motion } from 'framer-motion';
-
+import {
+  Action,
+  Loading,
+  ListItem,
+  ListContent,
+  InputWrapper,
+  Input,
+  ListText,
+  ListDate,
+  Button,
+} from './Todo.styles';
 import {
   LeadingActions,
   SwipeableList,
@@ -179,145 +187,5 @@ const Todo = ({ todo, apiBase, getTodos, index }) => {
     </SwipeableList>
   );
 };
-
-// Styled components
-const ListItem = styled(motion.li)`
-  width: 100%;
-  margin-bottom: 8px;
-  list-style-type: none;
-  padding: 18px;
-  background: ${(props) => (props.completed ? '#fff' : '#f1f1f1')};
-  color: ${(props) => (props.completed ? '#aaa' : '#111')};
-  border: 1px solid #f1f1f1;
-  border-radius: 12px;
-  display: flex;
-  justify-content: space-between;
-  text-align: left;
-  transition: 250ms ease;
-
-  &:hover {
-    border: 1px solid #e1e1e1;
-  }
-`;
-
-const ListContent = styled.div`
-  overflow: hidden;
-`;
-
-const ListText = styled.h4`
-  cursor: pointer;
-  line-height: 18px;
-`;
-
-const ListDate = styled.small`
-  font-size: 12px;
-
-  span {
-    margin-left: 6px;
-  }
-`;
-
-const Action = styled.div`
-  display: flex;
-  align-items: center;
-  width: 100%;
-  padding: 10px;
-  margin: 0 8px 8px;
-  font-size: 12px;
-  font-weight: 600;
-  color: #fff;
-  padding: 10px;
-  border-radius: 12px;
-
-  &.success {
-    background: #3e9e47;
-  }
-
-  &.danger {
-    background: #e6354d;
-  }
-`;
-
-const Button = styled.button`
-  border: none;
-  outline: none;
-  border-radius: 12px;
-  width: 40px;
-  height: 40px;
-  cursor: pointer;
-  transition: 250ms ease;
-
-  &.success {
-    border: 1px solid #3e9e47;
-    color: #3e9e47;
-    background: none;
-
-    &:hover {
-      color: #f1f1f1;
-      background: #3e9e47;
-    }
-
-    &:active {
-      border: 1px solid #3e9e47;
-      color: #3e9e47;
-      background: none;
-    }
-
-    &:focus {
-      border: 1px solid #3e9e47;
-      color: #3e9e47;
-      background: none;
-    }
-  }
-
-  &.danger {
-    border: 1px solid #e6354d;
-    color: #e6354d;
-    background: none;
-
-    &:hover {
-      color: #f1f1f1;
-      background: #e6354d;
-    }
-
-    &:active {
-      border: 1px solid #e6354d;
-      color: #e6354d;
-      background: none;
-    }
-
-    &:focus {
-      border: 1px solid #e6354d;
-      color: #e6354d;
-      background: none;
-    }
-  }
-`;
-
-const InputWrapper = styled.div``;
-
-const Input = styled.input`
-  width: 172px;
-  height: 40px;
-  padding: 0 12px;
-  outline: none;
-  border: 1px solid #3486eb;
-  border-radius: 12px;
-  font-size: 16px;
-`;
-
-const Loading = styled.div`
-  background: #f1f1f1;
-  color: #666;
-  font-size: 12px;
-  font-weight: bolder;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
-  height: 86px;
-  margin-bottom: 8px;
-  border-radius: 12px;
-`;
 
 export default Todo;
