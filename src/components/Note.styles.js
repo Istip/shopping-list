@@ -19,6 +19,7 @@ export const Wrapper = styled.div`
 export const DeleteButton = styled.button`
   all: unset;
   cursor: pointer;
+  font-size: 12px;
   border-radius: 12px;
   width: 100%;
   height: 40px;

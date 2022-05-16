@@ -2,6 +2,7 @@ import styled from 'styled-components';
 
 export const Container = styled.div`
   width: 100%;
+  padding: 20px;
   min-height: 100vh;
   background: 'white';
   display: flex;
@@ -13,7 +14,7 @@ export const Container = styled.div`
 `;
 
 export const Wrapper = styled.div`
-  width: 400px;
+  width: 320px;
   margin: 20px;
   text-align: center;
   display: flex;
