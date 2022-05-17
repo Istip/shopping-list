@@ -61,7 +61,7 @@ const Form = ({ filter, view, setList, setNotes, setFilter }) => {
         <Button type="submit">
           <i
             className={
-              view === 'list' ? 'fas fa-paper-plane' : 'far fa-sticky-note'
+              view === 'list' ? 'fas fa-paper-plane' : 'fas fa-comment-alt'
             }
           />
           {view === 'list' ? 'Add to List' : 'Create a new Note'}

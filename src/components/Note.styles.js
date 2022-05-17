@@ -13,7 +13,6 @@ export const Wrapper = styled.div`
   flex-direction: column;
   justify-content: space-between;
   text-align: left;
-  transition: 250ms ease;
 `;
 
 export const DeleteButton = styled.button`
@@ -23,7 +22,6 @@ export const DeleteButton = styled.button`
   border-radius: 12px;
   width: 100%;
   height: 40px;
-  transition: 250ms ease;
   border: 1px solid #e6354d;
   color: #f1f1f1;
   background: #e6354d;

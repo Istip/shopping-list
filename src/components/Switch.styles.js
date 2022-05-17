@@ -10,16 +10,14 @@ export const Wrapper = styled.div`
 export const Tab = styled.div`
   width: 100%;
   padding: 10px 20px;
-  transition: 250ms ease;
   background: transparent;
   cursor: pointer;
+  border: 1px solid transparent;
   border-bottom: 1px solid #3486eb;
 
   display: flex;
   align-items: center;
   justify-content: space-between;
-
-  // d6e7fb
 
   &.active-right {
     border-radius: 8px;
@@ -45,13 +43,14 @@ export const Tab = styled.div`
 export const Badge = styled.div`
   background: #eea122;
   color: #fff;
-  width: 20px;
-  height: 20px;
+  width: 18px;
+  height: 18px;
   display: flex;
   align-items: center;
   justify-content: center;
 
   border-radius: 50px;
-  font-size: 10px;
-  font-weight: bold;
+  font-size: 8px;
+  /* font-weight: bold; */
+  font-feature-settings: 'tnum' on, 'lnum' on;
 `;
