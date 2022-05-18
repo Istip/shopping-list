@@ -10,7 +10,7 @@ const Switch = ({ list, notes, view, setView }) => {
         className={view === 'list' ? 'active-left' : ''}
         onClick={setViewToList}
       >
-        <h4>Shop List</h4>
+        <h4>Shopping</h4>
         <Badge>{list.length}</Badge>
       </Tab>
       <Tab
