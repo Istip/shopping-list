@@ -33,7 +33,8 @@ const Note = ({ note, getNotes, apiBase }) => {
 
       <div>
         <DeleteButton onClick={() => handleDelete(note._id)} disabled={loading}>
-          <i className="fa fa-trash" /> Remove
+          <i className="fa fa-trash" />{' '}
+          {loading ? 'Removing from list...' : 'Remove'}
         </DeleteButton>
       </div>
     </Wrapper>

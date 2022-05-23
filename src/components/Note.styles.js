@@ -17,6 +17,7 @@ export const Wrapper = styled.div`
 
 export const DeleteButton = styled.button`
   all: unset;
+  opacity: 1;
   cursor: pointer;
   font-size: 12px;
   border-radius: 12px;
@@ -26,6 +27,10 @@ export const DeleteButton = styled.button`
   color: #f1f1f1;
   background: #e6354d;
   text-align: center;
+
+  &:disabled {
+    opacity: 0.5;
+  }
 
   i {
     margin-right: 4px;
