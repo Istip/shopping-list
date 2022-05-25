@@ -1,6 +1,6 @@
 import axios from 'axios';
 import moment from 'moment';
-import { useState } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import {
   DeleteButton,
   Wrapper,
@@ -8,11 +8,14 @@ import {
   Text,
   Textarea,
   SuccessButton,
+  Form,
 } from './Note.styles';
 
 const Note = ({ note, getNotes, apiBase }) => {
   const [loading, setLoading] = useState(false);
   const [editing, setEditing] = useState(false);
+
+  const itemRef = useRef();
 
   const handleDelete = (id) => {
     setLoading(true);
@@ -28,6 +31,23 @@ const Note = ({ note, getNotes, apiBase }) => {
       });
   };
 
+  const handleClickOutside = (e) => {
+    if (itemRef.current.contains(e.target)) {
+      return;
+    }
+    setEditing(false);
+  };
+
+  useEffect(() => {
+    if (itemRef) {
+      document.addEventListener('mousedown', handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, []);
+
   return (
     <Wrapper>
       <Time>
@@ -38,13 +58,13 @@ const Note = ({ note, getNotes, apiBase }) => {
       </Time>
 
       {editing ? (
-        <>
+        <Form ref={itemRef}>
           <Textarea rows="3" />
           <SuccessButton disabled={loading}>
             <i className="fas fa-save"></i>
             {loading ? 'Updating the note...' : 'Update'}
           </SuccessButton>
-        </>
+        </Form>
       ) : (
         <div onClick={() => setEditing((prev) => !prev)}>
           <Text>{note.text}</Text>

@@ -74,11 +74,14 @@ export const Text = styled.div`
 `;
 
 export const Textarea = styled.textarea`
-  all: unset;
   border: 1px solid #b5d3f8;
   background: #fff;
   margin: 12px 0;
   border-radius: 12px;
   padding: 12px;
   font-size: 14px;
+  width: 100%;
+  outline: none;
 `;
+
+export const Form = styled.div``;
