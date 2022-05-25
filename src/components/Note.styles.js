@@ -37,6 +37,28 @@ export const DeleteButton = styled.button`
   }
 `;
 
+export const SuccessButton = styled.button`
+  all: unset;
+  opacity: 1;
+  cursor: pointer;
+  font-size: 12px;
+  border-radius: 12px;
+  width: 100%;
+  height: 40px;
+  border: 1px solid #3e9e47;
+  color: #f1f1f1;
+  background: #3e9e47;
+  text-align: center;
+
+  &:disabled {
+    opacity: 0.5;
+  }
+
+  i {
+    margin-right: 4px;
+  }
+`;
+
 export const Time = styled.div`
   font-size: 12px;
   font-weight: bold;
@@ -48,5 +70,15 @@ export const Time = styled.div`
 
 export const Text = styled.div`
   padding: 10px 0 20px;
+  font-size: 14px;
+`;
+
+export const Textarea = styled.textarea`
+  all: unset;
+  border: 1px solid #b5d3f8;
+  background: #fff;
+  margin: 12px 0;
+  border-radius: 12px;
+  padding: 12px;
   font-size: 14px;
 `;
