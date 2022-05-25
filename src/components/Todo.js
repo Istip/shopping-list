@@ -66,14 +66,21 @@ const Todo = ({ todo, apiBase, getTodos, index }) => {
   };
 
   const handleUpdate = (id) => {
-    setEditing(false);
+    setLoading(true);
 
     const data = { text: selected.text };
 
     axios
       .patch(`${apiBase}/${id}`, data)
-      .then(() => getTodos())
-      .catch((error) => console.log(error));
+      .then(() => {
+        getTodos();
+        setEditing(false);
+        setLoading(false);
+      })
+      .catch((error) => {
+        console.log(error);
+        setLoading(false);
+      });
   };
 
   const handleClickOutside = (e) => {

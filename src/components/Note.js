@@ -37,6 +37,24 @@ const Note = ({ note, getNotes, apiBase }) => {
     setEditText(note.text);
   };
 
+  const handleUpdate = (id) => {
+    setLoading(true);
+
+    const data = { text: editText };
+
+    axios
+      .patch(`${apiBase}/${id}`, data)
+      .then(() => {
+        getNotes();
+        setEditing(false);
+        setLoading(false);
+      })
+      .catch((error) => {
+        console.log(error);
+        setLoading(false);
+      });
+  };
+
   const handleClickOutside = (e) => {
     if (itemRef.current && itemRef.current.contains(e.target)) {
       return;
@@ -70,7 +88,10 @@ const Note = ({ note, getNotes, apiBase }) => {
             value={editText}
             onChange={(e) => setEditText(e.target.value)}
           />
-          <SuccessButton disabled={loading}>
+          <SuccessButton
+            onClick={() => handleUpdate(note._id)}
+            disabled={loading}
+          >
             <i className="fas fa-save"></i>
             {loading ? 'Updating the note...' : 'Update'}
           </SuccessButton>
