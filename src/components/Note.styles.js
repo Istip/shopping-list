@@ -82,6 +82,7 @@ export const Textarea = styled.textarea`
   font-size: 14px;
   width: 100%;
   outline: none;
+  resize: none;
 `;
 
 export const Form = styled.div``;

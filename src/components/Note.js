@@ -14,6 +14,7 @@ import {
 const Note = ({ note, getNotes, apiBase }) => {
   const [loading, setLoading] = useState(false);
   const [editing, setEditing] = useState(false);
+  const [editText, setEditText] = useState('');
 
   const itemRef = useRef();
 
@@ -31,8 +32,13 @@ const Note = ({ note, getNotes, apiBase }) => {
       });
   };
 
+  const handleEdit = () => {
+    setEditing(true);
+    setEditText(note.text);
+  };
+
   const handleClickOutside = (e) => {
-    if (itemRef.current.contains(e.target)) {
+    if (itemRef.current && itemRef.current.contains(e.target)) {
       return;
     }
     setEditing(false);
@@ -59,14 +65,18 @@ const Note = ({ note, getNotes, apiBase }) => {
 
       {editing ? (
         <Form ref={itemRef}>
-          <Textarea rows="3" />
+          <Textarea
+            rows="3"
+            value={editText}
+            onChange={(e) => setEditText(e.target.value)}
+          />
           <SuccessButton disabled={loading}>
             <i className="fas fa-save"></i>
             {loading ? 'Updating the note...' : 'Update'}
           </SuccessButton>
         </Form>
       ) : (
-        <div onClick={() => setEditing((prev) => !prev)}>
+        <div onClick={handleEdit}>
           <Text>{note.text}</Text>
 
           <div>
