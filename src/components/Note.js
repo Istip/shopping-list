@@ -38,21 +38,23 @@ const Note = ({ note, getNotes, apiBase }) => {
   };
 
   const handleUpdate = (id) => {
-    setLoading(true);
+    if (editText) {
+      setLoading(true);
 
-    const data = { text: editText };
+      const data = { text: editText };
 
-    axios
-      .patch(`${apiBase}/${id}`, data)
-      .then(() => {
-        getNotes();
-        setEditing(false);
-        setLoading(false);
-      })
-      .catch((error) => {
-        console.log(error);
-        setLoading(false);
-      });
+      axios
+        .patch(`${apiBase}/${id}`, data)
+        .then(() => {
+          getNotes();
+          setEditing(false);
+          setLoading(false);
+        })
+        .catch((error) => {
+          console.log(error);
+          setLoading(false);
+        });
+    }
   };
 
   const handleClickOutside = (e) => {
@@ -81,37 +83,39 @@ const Note = ({ note, getNotes, apiBase }) => {
         <div>{moment(note.createdAt).format('YYYY-MM-DD')}</div>
       </Time>
 
-      {editing ? (
-        <Form ref={itemRef}>
-          <Textarea
-            rows="3"
-            value={editText}
-            onChange={(e) => setEditText(e.target.value)}
-            autoFocus
-          />
-          <SuccessButton
-            onClick={() => handleUpdate(note._id)}
-            disabled={loading}
-          >
-            <i className="fas fa-save"></i>
-            {loading ? 'Updating the note...' : 'Update'}
-          </SuccessButton>
-        </Form>
-      ) : (
-        <div onClick={handleEdit}>
-          <Text>{note.text}</Text>
-
-          <div>
-            <DeleteButton
-              onClick={() => handleDelete(note._id)}
+      <div ref={itemRef}>
+        {editing ? (
+          <Form>
+            <Textarea
+              rows="3"
+              value={editText}
+              onChange={(e) => setEditText(e.target.value)}
+              autoFocus
+            />
+            <SuccessButton
+              onClick={() => handleUpdate(note._id)}
               disabled={loading}
             >
-              <i className="fa fa-trash" />
-              {loading ? 'Removing from note...' : 'Remove'}
-            </DeleteButton>
-          </div>
-        </div>
-      )}
+              <i className="fas fa-save"></i>
+              {loading ? 'Updating the note...' : 'Update'}
+            </SuccessButton>
+          </Form>
+        ) : (
+          <>
+            <Text onClick={handleEdit}>{note.text}</Text>
+
+            <div>
+              <DeleteButton
+                onClick={() => handleDelete(note._id)}
+                disabled={loading}
+              >
+                <i className="fa fa-trash" />
+                {loading ? 'Removing from note...' : 'Remove'}
+              </DeleteButton>
+            </div>
+          </>
+        )}
+      </div>
     </Wrapper>
   );
 };
