@@ -87,6 +87,7 @@ const Note = ({ note, getNotes, apiBase }) => {
             rows="3"
             value={editText}
             onChange={(e) => setEditText(e.target.value)}
+            autoFocus
           />
           <SuccessButton
             onClick={() => handleUpdate(note._id)}
