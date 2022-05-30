@@ -56,12 +56,13 @@ const Note = ({ note, getNotes, apiBase }) => {
       axios
         .patch(`${apiBase}/${id}`, data)
         .then(() => {
-          getNotes();
           setEditing(false);
-          setLoading(false);
+          getNotes();
         })
         .catch((error) => {
           console.log(error);
+        })
+        .finally(() => {
           setLoading(false);
         });
     }

@@ -41,16 +41,23 @@ export const Tab = styled.div`
 `;
 
 export const Badge = styled.div`
-  background: #eea122;
+  background: #ee8f22;
   color: #fff;
-  width: 18px;
-  height: 18px;
+  width: 16px;
+  height: 16px;
   display: flex;
   align-items: center;
   justify-content: center;
+  transition: 250ms;
+  opacity: 1;
 
   border-radius: 50px;
   font-size: 8px;
-  /* font-weight: bold; */
+  font-weight: bold;
   font-feature-settings: 'tnum' on, 'lnum' on;
+
+  &:hover {
+    opacity: 0.5;
+    transform: scale(1.5);
+  }
 `;

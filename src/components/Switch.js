@@ -11,14 +11,14 @@ const Switch = ({ list, notes, view, setView }) => {
         onClick={setViewToList}
       >
         <h4>Shopping</h4>
-        <Badge>{list.length}</Badge>
+        <Badge view={view === 'list'}>{list.length}</Badge>
       </Tab>
       <Tab
         className={view === 'notes' ? 'active-right' : ''}
         onClick={setViewToNotes}
       >
         <h4>Notes</h4>
-        <Badge>{notes.length}</Badge>
+        <Badge view={view === 'notes'}>{notes.length}</Badge>
       </Tab>
     </Wrapper>
   );
