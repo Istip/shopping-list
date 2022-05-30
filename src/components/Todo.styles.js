@@ -36,6 +36,7 @@ export const ListDate = styled.small`
 export const Action = styled.div`
   display: flex;
   align-items: center;
+  text-align: center;
   width: 100%;
   padding: 10px;
   margin: 0 8px 8px;

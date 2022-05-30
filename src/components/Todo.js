@@ -1,5 +1,4 @@
 import { useEffect, useRef, useState } from 'react';
-import moment from 'moment';
 import axios from 'axios';
 import {
   Action,
@@ -20,6 +19,7 @@ import {
   TrailingActions,
 } from 'react-swipeable-list';
 import 'react-swipeable-list/dist/styles.css';
+import TodoTime from './TodoTime';
 
 const Todo = ({ todo, apiBase, getTodos, index }) => {
   const [selected, setSelected] = useState({});
@@ -156,27 +156,7 @@ const Todo = ({ todo, apiBase, getTodos, index }) => {
                 </ListText>
               )}
               <ListDate>
-                <i
-                  className="far fa-clock"
-                  style={{
-                    color:
-                      moment().diff(moment(todo.createdAt), 'months') >= 1
-                        ? '#e6354d99'
-                        : '#999',
-                  }}
-                ></i>
-                <span>
-                  <b
-                    style={{
-                      color:
-                        moment().diff(moment(todo.createdAt), 'months') >= 1
-                          ? '#e6354d99'
-                          : '#aaa',
-                    }}
-                  >
-                    {moment(todo.createdAt).fromNow()}
-                  </b>
-                </span>
+                <TodoTime todo={todo} />
               </ListDate>
             </ListContent>
 
