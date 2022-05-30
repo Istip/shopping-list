@@ -40,6 +40,7 @@ function App() {
 
   useEffect(() => {
     getNotes();
+    getTodos();
     // eslint-disable-next-line
   }, []);
 
