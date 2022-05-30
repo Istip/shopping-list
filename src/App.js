@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { useLocalStorage } from './hooks/useLocalStorage';
 import axios from 'axios';
 
-import { Container, Wrapper, Title } from './App.styles';
+import { Container, Wrapper, Title, Img } from './App.styles';
 import Form from './components/Form';
 import Todos from './components/Todos';
 import Notes from './components/Notes';
@@ -11,9 +11,9 @@ import Switch from './components/Switch';
 function App() {
   const [list, setList] = useState([]);
   const [notes, setNotes] = useState([]);
-  const [view, setView] = useState('list');
   const [loading, setLoading] = useState(true);
 
+  const [view, setView] = useLocalStorage('tab', 'list');
   const [filter, setFilter] = useLocalStorage('viewFilter', true);
 
   const API_BASE = process.env.REACT_APP_BASE_URL;
@@ -47,31 +47,40 @@ function App() {
     <Container>
       <Wrapper>
         <Title>Our List</Title>
-        <Form
-          filter={filter}
-          view={view}
-          setList={setList}
-          setNotes={setNotes}
-          setFilter={setFilter}
-        />
-        <Switch list={list} notes={notes} view={view} setView={setView} />
-
-        {view === 'list' && (
-          <Todos
-            list={list}
-            loading={loading}
-            filter={filter}
-            getTodos={getTodos}
-            apiBase={API_BASE + 'todos'}
+        {loading ? (
+          <Img
+            // src="https://gifimage.net/wp-content/uploads/2017/08/spinner-gif-7.gif"
+            src="https://i.pinimg.com/originals/dc/62/38/dc62389d416fe466fd88d3c29c31f8c6.gif"
+            alt="is loading..."
           />
-        )}
+        ) : (
+          <>
+            <Form
+              filter={filter}
+              view={view}
+              setList={setList}
+              setNotes={setNotes}
+              setFilter={setFilter}
+            />
+            <Switch list={list} notes={notes} view={view} setView={setView} />
 
-        {view === 'notes' && (
-          <Notes
-            notes={notes}
-            getNotes={getNotes}
-            apiBase={API_BASE + 'notes'}
-          />
+            {view === 'list' && (
+              <Todos
+                list={list}
+                filter={filter}
+                getTodos={getTodos}
+                apiBase={API_BASE + 'todos'}
+              />
+            )}
+
+            {view === 'notes' && (
+              <Notes
+                notes={notes}
+                getNotes={getNotes}
+                apiBase={API_BASE + 'notes'}
+              />
+            )}
+          </>
         )}
       </Wrapper>
     </Container>

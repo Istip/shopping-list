@@ -29,4 +29,11 @@ export const Wrapper = styled.div`
 
 export const Title = styled.h1`
   margin-top: 20px;
+  font-weight: 500;
+`;
+
+export const Img = styled.img`
+  width: 300px;
+  height: auto;
+  margin-bottom: 40px;
 `;

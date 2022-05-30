@@ -17,8 +17,3 @@ export const Empty = styled.div`
   padding: 18px 64px;
   color: #c1c1c1;
 `;
-
-export const Img = styled.img`
-  width: 300px;
-  height: auto;
-`;

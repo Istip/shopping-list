@@ -1,8 +1,8 @@
 import { useEffect } from 'react';
 import Todo from './Todo';
-import { Img, Empty, List, Wrapper } from './Todos.styles';
+import { Empty, List, Wrapper } from './Todos.styles';
 
-const Todos = ({ list, loading, filter, getTodos, apiBase }) => {
+const Todos = ({ list, filter, getTodos, apiBase }) => {
   const filteredTodos = list.filter((todo) =>
     filter ? !todo.completed : todo
   );
@@ -11,15 +11,6 @@ const Todos = ({ list, loading, filter, getTodos, apiBase }) => {
     getTodos();
     // eslint-disable-next-line
   }, []);
-
-  if (loading) {
-    return (
-      <Img
-        src="https://www.scudamores.com/assets/damsel/assets/img/load.gif"
-        alt="Loading..."
-      />
-    );
-  }
 
   return (
     <Wrapper>

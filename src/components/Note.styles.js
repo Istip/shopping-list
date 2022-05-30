@@ -37,6 +37,24 @@ export const DeleteButton = styled.button`
   }
 `;
 
+export const CancelButton = styled.button`
+  all: unset;
+  opacity: 1;
+  cursor: pointer;
+  font-size: 12px;
+  border-radius: 12px;
+  width: 50px;
+  height: 40px;
+  border: 1px solid #333;
+  color: #f1f1f1;
+  background: #333;
+  text-align: center;
+
+  &:disabled {
+    opacity: 0.5;
+  }
+`;
+
 export const SuccessButton = styled.button`
   all: unset;
   opacity: 1;
@@ -62,7 +80,7 @@ export const SuccessButton = styled.button`
 export const Time = styled.div`
   font-size: 12px;
   font-weight: bold;
-  color: #aaa;
+  opacity: 0.25;
   display: flex;
   gap: 4px;
   justify-content: flex-end;
@@ -86,3 +104,8 @@ export const Textarea = styled.textarea`
 `;
 
 export const Form = styled.div``;
+
+export const DeleteButtonGroup = styled.div`
+  display: flex;
+  gap: 5px;
+`;
