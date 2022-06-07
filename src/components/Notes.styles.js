@@ -6,6 +6,7 @@ export const Wrapper = styled.div`
   padding: 20px;
   border-bottom-left-radius: 12px;
   border-bottom-right-radius: 12px;
+  overflow-x: hidden;
 `;
 
 export const Empty = styled.div`

@@ -6,9 +6,10 @@ const Notes = ({ notes, getNotes, apiBase }) => {
     <Wrapper>
       {notes.length ? (
         <>
-          {notes.map((note) => (
+          {notes.map((note, index) => (
             <Note
               note={note}
+              index={index}
               key={note._id}
               apiBase={apiBase}
               getNotes={getNotes}

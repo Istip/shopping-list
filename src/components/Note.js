@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { motion } from 'framer-motion';
 import moment from 'moment';
 import { useState, useRef, useEffect } from 'react';
 import {
@@ -13,7 +14,7 @@ import {
   CancelButton,
 } from './Note.styles';
 
-const Note = ({ note, getNotes, apiBase }) => {
+const Note = ({ note, getNotes, apiBase, index }) => {
   const [loading, setLoading] = useState(false);
   const [editing, setEditing] = useState(false);
   const [editText, setEditText] = useState('');
@@ -86,7 +87,12 @@ const Note = ({ note, getNotes, apiBase }) => {
   }, []);
 
   return (
-    <Wrapper>
+    <Wrapper
+      as={motion.div}
+      initial={{ translateX: -50, opacity: 0 }}
+      animate={{ translateX: 0, opacity: 1 }}
+      transition={{ duration: 0.25, delay: index * 0.025 }}
+    >
       <Time>
         <div>
           <i className="fas fa-calendar"></i>
