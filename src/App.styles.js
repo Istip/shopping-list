@@ -10,7 +10,7 @@ export const Container = styled.div`
   justify-content: center;
   flex-direction: column;
   overflow-x: hidden;
-  background: #3486eb33;
+  background: ${({ bgColor }) => `#${bgColor}33`};
 `;
 
 export const Wrapper = styled.div`

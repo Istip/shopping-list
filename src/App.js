@@ -7,11 +7,13 @@ import Form from './components/Form';
 import Todos from './components/Todos';
 import Notes from './components/Notes';
 import Switch from './components/Switch';
+import { generateHexColor } from './utils/generateHexColor';
 
 function App() {
   const [list, setList] = useState([]);
   const [notes, setNotes] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [bgColor, setBgColor] = useState('3486eb');
 
   const [view, setView] = useLocalStorage('tab', 'list');
   const [filter, setFilter] = useLocalStorage('viewFilter', true);
@@ -45,7 +47,10 @@ function App() {
   }, []);
 
   return (
-    <Container>
+    <Container
+      onDoubleClick={() => generateHexColor(setBgColor)}
+      bgColor={bgColor}
+    >
       <Wrapper>
         <Title>Our List</Title>
         {loading ? (
