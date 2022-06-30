@@ -52,7 +52,7 @@ function App() {
       bgColor={bgColor}
     >
       <Wrapper>
-        <Title>Our List</Title>
+        <Title data-cy="main-title">Our List</Title>
         {loading ? (
           <Img
             // src="https://gifimage.net/wp-content/uploads/2017/08/spinner-gif-7.gif"
