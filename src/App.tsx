@@ -9,9 +9,9 @@ import Notes from './components/Notes';
 import Switch from './components/Switch';
 import { generateHexColor } from './utils/generateHexColor';
 
-function App() {
-  const [list, setList] = useState([]);
-  const [notes, setNotes] = useState([]);
+const App: React.FC = () => {
+  const [list, setList] = useState<object>([]);
+  const [notes, setNotes] = useState<object>([]);
   const [loading, setLoading] = useState(true);
   const [bgColor, setBgColor] = useState('3486eb');
 
@@ -91,6 +91,6 @@ function App() {
       </Wrapper>
     </Container>
   );
-}
+};
 
 export default App;

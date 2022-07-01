@@ -6,8 +6,8 @@ interface Props {
   filter: boolean;
   view: string;
   setFilter: (bool: boolean) => void;
-  setNotes: (arg: object) => void;
-  setList: (arg: object) => void;
+  setNotes: (value: object) => void;
+  setList: (value: object) => void;
 }
 
 const Form: React.FC<Props> = ({
@@ -20,7 +20,7 @@ const Form: React.FC<Props> = ({
   const [text, setText] = useState('');
   const API_BASE = process.env.REACT_APP_BASE_URL;
 
-  const createData = (e: FormEvent) => {
+  const createData = async (e: FormEvent) => {
     e.preventDefault();
 
     const data: { text: string; createdAt: number } = {
@@ -29,7 +29,7 @@ const Form: React.FC<Props> = ({
     };
 
     if (view === 'list') {
-      return axios
+      return await axios
         .post(API_BASE + 'todos', data)
         .then((res) => {
           setList((prevState: string[]) => [res.data, ...prevState]);
@@ -38,7 +38,7 @@ const Form: React.FC<Props> = ({
         .catch((error) => console.log(error));
     }
 
-    return axios
+    return await axios
       .post(API_BASE + 'notes', data)
       .then((res) => {
         setNotes((prevState: string[]) => [res.data, ...prevState]);

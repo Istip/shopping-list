@@ -4,11 +4,12 @@ import './index.css';
 import App from './App';
 import * as serviceWorkerRegistration from './serviceWorkerRegistration';
 
-ReactDOM.render(
+const rootElement: JSX.Element = (
   <React.StrictMode>
     <App />
-  </React.StrictMode>,
-  document.getElementById('root')
+  </React.StrictMode>
 );
+
+ReactDOM.render(rootElement, document.getElementById('root'));
 
 serviceWorkerRegistration.register();
