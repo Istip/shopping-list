@@ -8,10 +8,12 @@ import Todos from './components/Todos';
 import Notes from './components/Notes';
 import Switch from './components/Switch';
 import { generateHexColor } from './utils/generateHexColor';
+import { IList } from 'interfaces/List.interface';
+import { INote } from 'interfaces/Note.interface';
 
 const App: React.FC = () => {
-  const [list, setList] = useState<object>([]);
-  const [notes, setNotes] = useState<object>([]);
+  const [list, setList] = useState<IList[]>([]);
+  const [notes, setNotes] = useState<INote[]>([]);
   const [loading, setLoading] = useState(true);
   const [bgColor, setBgColor] = useState('3486eb');
 
@@ -62,6 +64,8 @@ const App: React.FC = () => {
         ) : (
           <>
             <Form
+              list={list}
+              notes={notes}
               filter={filter}
               view={view}
               setList={setList}

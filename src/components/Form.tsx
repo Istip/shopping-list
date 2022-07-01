@@ -1,16 +1,23 @@
 import { FormEvent, ChangeEvent, useState } from 'react';
 import axios from 'axios';
 import { Form as FormWrapper, Input, ButtonGroup, Button } from './Form.styles';
+import { IList } from 'interfaces/List.interface';
+import { INote } from 'interfaces/Note.interface';
 
 interface Props {
   filter: boolean;
   view: string;
+  list: IList[];
+  notes: INote[];
   setFilter: (bool: boolean) => void;
-  setNotes: (value: object) => void;
-  setList: (value: object) => void;
+
+  setNotes: (value: INote[]) => void;
+  setList: (value: any) => void;
 }
 
 const Form: React.FC<Props> = ({
+  list,
+  notes,
   filter,
   view,
   setList,
@@ -32,7 +39,8 @@ const Form: React.FC<Props> = ({
       return await axios
         .post(API_BASE + 'todos', data)
         .then((res) => {
-          setList((prevState: string[]) => [res.data, ...prevState]);
+          const newList = [res.data, ...list];
+          setList(newList);
           setText('');
         })
         .catch((error) => console.log(error));
@@ -41,7 +49,8 @@ const Form: React.FC<Props> = ({
     return await axios
       .post(API_BASE + 'notes', data)
       .then((res) => {
-        setNotes((prevState: string[]) => [res.data, ...prevState]);
+        const newNotes = [res.data, ...notes];
+        setNotes(newNotes);
         setText('');
       })
       .catch((error) => console.log(error));
