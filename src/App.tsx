@@ -9,7 +9,6 @@ import Notes from './components/Notes';
 import Switch from './components/Switch';
 import { generateHexColor } from './utils/generateHexColor';
 import { IList } from 'interfaces/List.interface';
-// import { INote } from 'interfaces/Note.interface';
 
 const App: React.FC = () => {
   const [list, setList] = useState<IList[]>([]);
